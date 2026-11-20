@@ -12,11 +12,12 @@ window.QUIZ_CONFIG = {
   },
   // THAY khối dưới bằng firebaseConfig của dự án Firebase MỚI (Bước 1.6 trong hướng dẫn)
   firebase: {
-    apiKey: "DAN_API_KEY",
-    authDomain: "DAN.firebaseapp.com",
-    projectId: "DAN",
-    storageBucket: "DAN.firebasestorage.app",
-    messagingSenderId: "DAN",
-    appId: "DAN"
+    apiKey: "AIzaSyCo3-xoR2Yt6EJ257RYIyuNDVxv9AHxXI8",
+  authDomain: "ldgkh-thi.firebaseapp.com",
+  projectId: "ldgkh-thi",
+  storageBucket: "ldgkh-thi.firebasestorage.app",
+  messagingSenderId: "974260168761",
+  appId: "1:974260168761:web:9336cbe415cba57ec185e8",
+  measurementId: "G-KMWQVVQ2KM"
   }
 };

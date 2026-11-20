@@ -84,7 +84,15 @@ async function init() {
   if (!C.firebase || String(C.firebase.apiKey).indexOf('DAN_') === 0) { msg('Chưa cấu hình Firebase (config.js).'); return; }
   msg('Đang kết nối…');
   try { uid = (await signInAnonymously(auth)).user.uid; }
-  catch (e) { msg('Không kết nối được máy chủ.<br>Kiểm tra mạng rồi tải lại trang.'); return; }
+  catch (e) {
+    const c = (e && e.code) || '';
+    msg('Không kết nối được máy chủ.<br>Kiểm tra mạng rồi tải lại trang.' +
+      (/admin-restricted|operation-not-allowed/.test(c) ? '<br><span class="note">(Giảng viên: chưa bật đăng nhập Anonymous trong Firebase Authentication.)</span>' :
+       /unauthorized-domain|requests-from-referer/.test(c) ? '<br><span class="note">(Giảng viên: chưa thêm tên miền này vào Authorized domains của Firebase.)</span>' :
+       /api-key|invalid-api/.test(c) ? '<br><span class="note">(Giảng viên: apiKey trong config.js không đúng.)</span>' : '') +
+      (c ? '<br><span class="note">Mã lỗi: ' + esc(c) + '</span>' : ''));
+    return;
+  }
   // Lắng nghe giờ bắt đầu/kết thúc theo thời gian thực
   onSnapshot(doc(db, 'config', session), snap => applyConfig(snap.exists() ? snap.data() : null),
     () => msg('Mất kết nối máy chủ. Tải lại trang.'));
